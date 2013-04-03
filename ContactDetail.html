@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<title>
+			ContactsDetail
+		</title>
+	</head>
+	<body>
+
+		<h1>Contacts Detail</h1>
+		<div>Name: <span id="name"></span></div>
+		<div>Title: <span id="title"></span></div>
+		<div>Phone: <span id="phone"></span></div>
+		<div>Email: <span id="email"></span></div>
+		<div>Twitter: <span id="twitter"></span></div>
+		<div id="edit"></div>
+		
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="scripts/purl.js"></script>
+		<script type="text/javascript" charset="utf-8">		
+		// Get all the contact.
+		var id = $.url().param('id')
+		$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe', function(data) {
+			
+			console.log(data)
+			
+			var contact = data.contact;
+			$('#name').html(contact.name)
+			$('#title').html(contact.title)
+			$('#phone').html(contact.phone)
+			$('#email').html(contact.email)
+			$('#twitter').html(contact.twitterId)
+			
+			$('#edit').html('<a href="EditContact.html?id=' + contact._id + '">Edit</a>')
+		})	
+		</script>
+	</body>
+</html>
