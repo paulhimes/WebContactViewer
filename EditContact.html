@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<title>
-			EditContact
+			Edit Contact
 		</title>
 	</head>
 	<body>
@@ -48,11 +48,12 @@
           "json")	
 		
 		$('#save').click(function() {
-			// console.log("save clicked")
+			console.log("save clicked")
 			// console.log(contact)
 			// PUT the contact updates on the server.
 			$.ajax({
 				type: 'PUT',
+				dataType: 'json',
 				url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
 				data: { "_id": contact._id, 
 					    "name": $('#name').val(), 
@@ -63,10 +64,20 @@
 			}).done(function (data) {
 				console.log("Put finished")
 				console.log(data)
+				window.open('ContactDetail.html?id=' + contact._id, '_self')
 			})
 		})
 		$('#delete').click(function() {
 			console.log("delete clicked")
+			$.ajax({
+				type: 'DELETE',
+				dataType: 'json',
+				url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
+			}).done(function (data) {
+				console.log("Delete finished")
+				console.log(data)
+				window.open('ContactsList.html', '_self')
+			})
 		})
 		
 		</script>

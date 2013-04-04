@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<link rel="stylesheet" href="css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
 		<title>
-			ContactsList
+			Contacts List
 		</title>
 	</head>
 	<body>
@@ -12,21 +12,20 @@
 		<h1>Contacts List</h1>
 		<ul id="contactList">
 		</ul>
+		<div><a href="EditContact.html">Add Contact</a></div>
 		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		
 		<script type="text/javascript" charset="utf-8">		
 		// Get all the contacts.
-			$.get('http://contacts.tinyapollo.com/contacts?key=letitbe',
-            function(data) {
-              var contacts = data.contacts
-              for(var i = 0; i < contacts.length; i++) {
-                // Add each contact to the list.
-                console.log(contacts[i].name)
-                $('#contactList').append('<li><a href="ContactDetail.html?id=' + contacts[i]._id + '">' + contacts[i].name + '</a></li>')
-              }
-            },
-            "json")	
-    </script>
+			$.get('http://contacts.tinyapollo.com/contacts?key=letitbe', function(data) {
+				var contacts = data.contacts
+				for(var i = 0; i < contacts.length; i++) {
+					// Add each contact to the list.
+					console.log(contacts[i].name)
+					$('#contactList').append('<li><a href="ContactDetail.html?id=' + contacts[i]._id + '">' + contacts[i].name + '</a></li>')
+				}
+			})	
+		</script>
 	</body>
 </html>
