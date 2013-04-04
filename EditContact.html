@@ -28,11 +28,12 @@
 		<script type="text/javascript" charset="utf-8">		
 		// Get all the contact.
 		var id = $.url().param('id')
+		var contact
 		$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe', function(data) {
 			
 			// console.log(data)
 			
-			var contact = data.contact;
+			contact = data.contact;
 			$('#name').val(contact.name)
 			$('#title').val(contact.title)
 			var phoneParts = contact.phone.split("-")
@@ -46,6 +47,33 @@
 		
 		$('#save').click(function() {
 			console.log("save clicked")
+			// console.log(contact)
+			// PUT the contact updates on the server.
+			$.ajax({
+				type: 'PUT',
+				dataType: "jsonp",
+				url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
+				data: { "_id": contact._id, 
+					    "name": contact.name, 
+					    "title": contact.title, 
+					    "phone": contact.phone, 
+					    "email": contact.email,
+					    "twitterId": contact.twitterId }
+			}).done(function (data) {
+				console.log("Put finished")
+				// console.log(data)
+			})
+			// $.ajax('http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
+			// 		{ { _id: contact._id, 
+			// 		  name : contact.name, 
+			// 		  title : contact.title, 
+			// 		  phone : contact.phone, 
+			// 		  email : contact.email,
+			// 						      twitterId : contact.twitterId }},
+			// 	   function(data) {
+			// 		   console.log("Put finished")
+			// 		   console.log(data)
+			// 	   })
 		})
 		$('#delete').click(function() {
 			console.log("delete clicked")
