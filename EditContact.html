@@ -46,34 +46,22 @@
 		})	
 		
 		$('#save').click(function() {
-			console.log("save clicked")
+			// console.log("save clicked")
 			// console.log(contact)
 			// PUT the contact updates on the server.
 			$.ajax({
 				type: 'PUT',
-				dataType: "jsonp",
 				url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
 				data: { "_id": contact._id, 
-					    "name": contact.name, 
-					    "title": contact.title, 
-					    "phone": contact.phone, 
-					    "email": contact.email,
-					    "twitterId": contact.twitterId }
+					    "name": $('#name').val(), 
+					    "title": $('#title').val(), 
+					    "phone": $('#phoneAreaCode').val() + '-' + $('#phonePrefix').val() + '-' + $('#phoneLineNumber').val(), 
+					    "email": $('#email').val(),
+					    "twitterId": $('#twitter').val() }
 			}).done(function (data) {
 				console.log("Put finished")
-				// console.log(data)
+				console.log(data)
 			})
-			// $.ajax('http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
-			// 		{ { _id: contact._id, 
-			// 		  name : contact.name, 
-			// 		  title : contact.title, 
-			// 		  phone : contact.phone, 
-			// 		  email : contact.email,
-			// 						      twitterId : contact.twitterId }},
-			// 	   function(data) {
-			// 		   console.log("Put finished")
-			// 		   console.log(data)
-			// 	   })
 		})
 		$('#delete').click(function() {
 			console.log("delete clicked")
