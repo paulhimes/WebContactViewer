@@ -22,19 +22,21 @@
 		<script type="text/javascript" charset="utf-8">		
 		// Get all the contact.
 		var id = $.url().param('id')
-		$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe', function(data) {
+		$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe',
+          function(data) {
 			
-			console.log(data)
+            console.log(data)
 			
-			var contact = data.contact;
-			$('#name').html(contact.name)
-			$('#title').html(contact.title)
-			$('#phone').html(contact.phone)
-			$('#email').html(contact.email)
-			$('#twitter').html(contact.twitterId)
+            var contact = data.contact;
+            $('#name').html(contact.name)
+            $('#title').html(contact.title)
+            $('#phone').html(contact.phone)
+            $('#email').html(contact.email)
+            $('#twitter').html(contact.twitterId)
 			
-			$('#edit').html('<a href="EditContact.html?id=' + contact._id + '">Edit</a>')
-		})	
+            $('#edit').html('<a href="EditContact.html?id=' + contact._id + '">Edit</a>')
+          },
+          "json")	
 		</script>
 	</body>
 </html>
