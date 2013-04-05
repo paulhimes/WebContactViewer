@@ -26,58 +26,90 @@
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="scripts/purl.js"></script>
 		<script type="text/javascript" charset="utf-8">		
-		// Get all the contact.
+		
 		var id = $.url().param('id')
 		var contact
-		$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe',
-          function(data) {
-			
-            // console.log(data)
-			
-            contact = data.contact;
-            $('#name').val(contact.name)
-            $('#title').val(contact.title)
-            var phoneParts = contact.phone.split("-")
-            $('#phoneAreaCode').val(phoneParts[0])
-            $('#phonePrefix').val(phoneParts[1])
-            $('#phoneLineNumber').val(phoneParts[2])
-            $('#email').val(contact.email)
-            $('#twitter').val(contact.twitterId)
-			
-          },
-          "json")	
 		
+		// Pre-fill the form if we are editing an existing contact.
+		if(typeof id !== 'undefined') {
+			$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe',
+		      function(data) {
+		
+		        // console.log(data)
+		
+		        contact = data.contact;
+		        $('#name').val(contact.name)
+		        $('#title').val(contact.title)
+		        var phoneParts = contact.phone.split("-")
+		        $('#phoneAreaCode').val(phoneParts[0])
+		        $('#phonePrefix').val(phoneParts[1])
+		        $('#phoneLineNumber').val(phoneParts[2])
+		        $('#email').val(contact.email)
+		        $('#twitter').val(contact.twitterId)
+		
+		      },
+		      "json")	
+		}
+		
+		// Handle the Save button.
 		$('#save').click(function() {
 			console.log("save clicked")
 			// console.log(contact)
-			// PUT the contact updates on the server.
-			$.ajax({
-				type: 'PUT',
-				dataType: 'json',
-				url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
-				data: { "_id": contact._id, 
-					    "name": $('#name').val(), 
-					    "title": $('#title').val(), 
-					    "phone": $('#phoneAreaCode').val() + '-' + $('#phonePrefix').val() + '-' + $('#phoneLineNumber').val(), 
-					    "email": $('#email').val(),
-					    "twitterId": $('#twitter').val() }
-			}).done(function (data) {
-				console.log("Put finished")
-				console.log(data)
-				window.open('ContactDetail.html?id=' + contact._id, '_self')
-			})
+			
+			if(typeof contact !== 'undefined') {
+				// PUT the contact updates on the server.
+				$.ajax({
+					type: 'PUT',
+					dataType: 'json',
+					url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
+					data: { "_id": contact._id, 
+						    "name": $('#name').val(), 
+						    "title": $('#title').val(), 
+						    "phone": $('#phoneAreaCode').val() + '-' + $('#phonePrefix').val() + '-' + $('#phoneLineNumber').val(), 
+						    "email": $('#email').val(),
+						    "twitterId": $('#twitter').val() }
+				}).done(function (data) {
+					console.log("Put finished")
+					console.log(data)
+					window.open('ContactDetail.html?id=' + contact._id, '_self')
+				})
+			} else {
+				// POST the new contact to the server.
+				$.ajax({
+					type: 'POST',
+					dataType: 'json',
+					url: 'http://contacts.tinyapollo.com/contacts?key=letitbe',
+					data: { "name": $('#name').val(), 
+						    "title": $('#title').val(), 
+						    "phone": $('#phoneAreaCode').val() + '-' + $('#phonePrefix').val() + '-' + $('#phoneLineNumber').val(), 
+						    "email": $('#email').val(),
+						    "twitterId": $('#twitter').val() }
+				}).done(function (data) {
+					console.log("Post finished")
+					console.log(data)
+					window.open('ContactsList.html', '_self')
+				})
+			}
 		})
+		
+		// Handle the delete button.
 		$('#delete').click(function() {
 			console.log("delete clicked")
-			$.ajax({
-				type: 'DELETE',
-				dataType: 'json',
-				url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
-			}).done(function (data) {
-				console.log("Delete finished")
-				console.log(data)
+			if(typeof contact !== 'undefined') {
+				// Delete the existing contact.
+				$.ajax({
+					type: 'DELETE',
+					dataType: 'json',
+					url: 'http://contacts.tinyapollo.com/contacts/' + contact._id + '?key=letitbe',
+				}).done(function (data) {
+					console.log("Delete finished")
+					console.log(data)
+					window.open('ContactsList.html', '_self')
+				})
+			} else {
+				// Cancel adding the new contact.
 				window.open('ContactsList.html', '_self')
-			})
+			}
 		})
 		
 		</script>
