@@ -6,7 +6,7 @@ $("#contactListPage").on("pagebeforeshow", function() {
 	  $('#contactList').html('')
 	  for(var i = 0; i < contacts.length; i++) {
 	    // Add each contact to the list.
-	    $('#contactList').append('<li data-role="listitem"><a href="ContactDetail.html?id=' + contacts[i]._id + '">' + contacts[i].name + '</a></li>')
+	    $('#contactList').append('<li><a href="ContactDetail.html?id=' + contacts[i]._id + '">' + contacts[i].name + '</a></li>')
 	  }
 		$('#contactList').listview('refresh')
 	},
