@@ -1,20 +1,30 @@
 var currentContact
+var abcde = "fghij"
 
 // Load the Contact List Page
 $("#contactListPage").on("pagebeforeshow", function() {
 	// Get all the contacts.
 	$.get('http://contacts.tinyapollo.com/contacts?key=letitbe',
-	function(data) {
-	  var contacts = data.contacts
-	  $('#contactList').html('')
-	  for(var i = 0; i < contacts.length; i++) {
-	    // Add each contact to the list.
-		currentContact = contacts[i]
-	    $('#contactList').append('<li><a href="#contactDetailsPage">' + contacts[i].name + '</a></li>')
-	  }
-		$('#contactList').listview('refresh')
-	},
-	'json')
+        function(data) {
+          var contacts = data.contacts
+          $('#contactList').html('')
+          for(var i = 0; i < contacts.length; i++) {
+            // Add each contact to the list.
+            var name = contacts[i].name
+            var id = contacts[i]._id
+            $('#contactList').append('<li id="contact' + id + '"><a href="#contactDetailsPage">' + name + '</a></li>')
+            $('#contact' + id).on("click", function() {
+              $.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe',
+                    function(data) {
+                      console.log(data.contact)
+                      // This doesn't work because it's in the wrong scope...?
+                      currentContact = data.contact
+                    },
+                    'json')})
+          }
+          $('#contactList').listview('refresh')
+        },
+        'json')
 })
 
 // Load the Contact Details Page
