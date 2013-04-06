@@ -33,23 +33,23 @@
 		// Pre-fill the form if we are editing an existing contact.
 		if(typeof id !== 'undefined') {
 			$.get('http://contacts.tinyapollo.com/contacts/' + id + '/?key=letitbe',
-		      function(data) {
+            function(data) {
 		
-		        // console.log(data)
+              // console.log(data)
+
+              contact = data.contact;
+              $('#name').val(contact.name)
+              $('#title').val(contact.title)
+              var phoneParts = contact.phone.split("-")
+              $('#phoneAreaCode').val(phoneParts[0])
+              $('#phonePrefix').val(phoneParts[1])
+              $('#phoneLineNumber').val(phoneParts[2])
+              $('#email').val(contact.email)
+              $('#twitter').val(contact.twitterId)
 		
-		        contact = data.contact;
-		        $('#name').val(contact.name)
-		        $('#title').val(contact.title)
-		        var phoneParts = contact.phone.split("-")
-		        $('#phoneAreaCode').val(phoneParts[0])
-		        $('#phonePrefix').val(phoneParts[1])
-		        $('#phoneLineNumber').val(phoneParts[2])
-		        $('#email').val(contact.email)
-		        $('#twitter').val(contact.twitterId)
-		
-		      },
-		      "json")	
-		}
+            },
+            'json')
+    }
 		
 		// Handle the Save button.
 		$('#save').click(function() {
@@ -83,7 +83,8 @@
 						    "title": $('#title').val(), 
 						    "phone": $('#phoneAreaCode').val() + '-' + $('#phonePrefix').val() + '-' + $('#phoneLineNumber').val(), 
 						    "email": $('#email').val(),
-						    "twitterId": $('#twitter').val() }
+						    "twitterId": $('#twitter').val() },
+          dataType: 'json'
 				}).done(function (data) {
 					console.log("Post finished")
 					console.log(data)
