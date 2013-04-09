@@ -1,3 +1,11 @@
 h1 {
 	color: red;
 }
+
+.ui-footer-button{
+	color: white;
+	display: block;
+	background-color: 0xff;
+	border-radius: 5px;
+	border: 1px solid #469;
+}
