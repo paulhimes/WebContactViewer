@@ -37,7 +37,13 @@ $("#contactListPage").on("pagebeforeshow", function() {
 //Used to load the contact information to the page.  Thought it made more sence than doing so in the function above.
 function loadContact(){
 
-  $('#contactDetailsContent').html(currentContact.name)
+  var currentName = currentContact.name
+  var currentTitle = currentContact.title
+  var currentEmail = currentContact.email
+  var currentPhone = currentContact.phone
+  var currentTwitter = currentContact.twitterId
+
+  $('#contactDetailsContent').html('<h1>' + currentContact.name + '</h1><hr><h3>' + currentTitle + '</h3>' + currentEmail + '<br>' + currentPhone + '<br>' + currentTwitter + '<br>')
 }
 
 
