@@ -1,4 +1,4 @@
-var currentContact
+currentContact = "DateHere"
 var abcde = "fghij"
 
 // Load the Contact List Page
@@ -21,8 +21,10 @@ $("#contactListPage").on("pagebeforeshow", function() {
 
                     function(data) {
                       //console.log(data.contact)
-                      // This doesn't work because it's in the wrong scope...?
+                      // This doesn't work because it's in the wrong scope...?      //It wasn't working because the Load of the contactDetailsPage was happening before currentContact was set to data.contact  CML 04/09/2013
                       currentContact = data.contact
+                      loadContact()
+                      
                     },
                     'json'
                   )})
@@ -32,10 +34,20 @@ $("#contactListPage").on("pagebeforeshow", function() {
         'json')
 })
 
+//Used to load the contact information to the page.  Thought it made more sence than doing so in the function above.
+function loadContact(){
 
+  $('#contactDetailsContent').html(currentContact.name)
+}
+
+
+
+/*     Not Using
 // Load the Contact Details Page
-$("#contactDetailsPage").on("pagebeforeshow", function() {
+$("#contactDetailsPage").on("pagebeforeshow", function(id) {                //This function is Happening BEFORE the one above that sets currentContact
+
 	// Fill in the data labels.
 	         //$('#contactDetailsContent').html(currentContact.name)
-           console.log(currentContact)
+
 })
+*/
