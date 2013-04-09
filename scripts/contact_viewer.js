@@ -13,7 +13,7 @@ $("#contactListPage").on("pagebeforeshow", function() {
             var name = contacts[i].name
             var id = contacts[i]._id
 
-            $('#contactList').append('<li id="contact' + id + '" accessKey="' + id + '"><a href="#contactDetailsPage">' + name + '</a></li>')     //added accessKey CML 04/09/2013
+            $('#contactList').append('<li id="contact' + id + '" accessKey="' + id + '"><a href="#contactDetailsPage" data-transition="slide">' + name + '</a></li>')     //added accessKey CML 04/09/2013
 
             $('#contact' + id).on("click", function(event){           //added event to get the details of the sender (target) CML 04/09/2013
 
