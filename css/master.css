@@ -1,11 +1,16 @@
-h1 {
+.angry-h1 {
 	color: red;
 }
 
 .ui-footer-button{
 	color: white;
 	display: block;
-	background-color: 0xff;
+	background: rgb(96,0,0);
 	border-radius: 5px;
-	border: 1px solid #469;
+	width: 100%;
 }
+
+label {
+ width:75px;    /*Or however much space you need for the form’s labels*/
+     float:left;
+ }
