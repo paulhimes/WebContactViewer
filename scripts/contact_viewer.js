@@ -37,10 +37,17 @@ $("#contactListPage").on("pagebeforeshow", function() {
         'json')
 })
 
-
-
 // Load the Edit Details Page
 $("#editContactPage").on("pagebeforeshow", function() {
+
+          //Default all fields to empty
+            $('#editContactHeaderContent').html('Edit Contact')
+            $('#contactName').val('')
+            $('#contactTitle').val('')
+            $('#contactEmail').val('')
+            $('#contactPhone').val('')
+            $('#contactTwitterId').val('')
+
 
           if (currentContact==0){
             //this is an add form
@@ -82,9 +89,9 @@ function loadContact(){
     $('#contactDetailsContent').html('')
     $('#contactDetailsContent').append('<h1>' + currentContact.name + '</h1>')
     $('#contactDetailsContent').append('<hr><h3>' + currentTitle + '</h3>')
-    $('#contactDetailsContent').append(currentEmail + '<br>')
-    $('#contactDetailsContent').append(currentPhone + '<br>')
-    $('#contactDetailsContent').append(currentTwitter + '<br>')
+    $('#contactDetailsContent').append('<label>Email:</label>' + currentEmail + '<br>')
+    $('#contactDetailsContent').append('<label>Phone:</label>' + currentPhone + '<br>')
+    $('#contactDetailsContent').append('<label>Twitter Id:</label>' + currentTwitter + '<br>')
 }
 
 //Save Contact to the ContactList
@@ -94,14 +101,23 @@ function saveContact(id,name,title,email,phone,twitterId){
 }
 
 
+$('#cancelButton').on('click',function(){
+    if (currentContact==0){
+      //From Add Screen
+      window.location.href="#contactListPage"
+    }
+    else{
+      //From Edit
+      window.location.href="#contactDetailsPage"
+    }
+})
 
 
-
-
-
-
-// Load the Contact Details Page
-$("#contactDetailsPage").on("pagebeforeshow", function() {                //This function is Happening BEFORE the one above that sets currentContact
-	// Fill in the data labels.
-	         //$('#contactDetailsContent').html(currentContact.name)
+$('#saveButton').on('click',function(){
+    if (currentContact==0){
+      //Add Contact
+    }
+    else{
+      //Edit Contact
+    }
 })

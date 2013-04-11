@@ -10,7 +10,32 @@
 	width: 100%;
 }
 
+.ui-delete-button{
+	color: black;
+	display: block;
+	background: rgb(200,0,0);
+	border-radius: 12px;
+	width: 100%;
+}
+
+.ui-edit-save-button{
+	color: black;
+	display: block;
+	background: rgb(255,255,255);
+	border-radius: 12px;
+	width: 100%;
+}
+
+.ui-cancel-button{
+	color: white;
+	display: block;
+	background: rgb(0,0,0);
+	border-radius: 12px;
+	width: 100%;
+}
+
 label {
  width:75px;    /*Or however much space you need for the form’s labels*/
      float:left;
  }
+
