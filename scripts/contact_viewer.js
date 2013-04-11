@@ -159,5 +159,13 @@ $('#deleteButton').on('click',function(element){
 
 //Delete Contact from the List
 function deleteContact(id){
-  console.log("Delete " + id)
+$.ajax({
+      type: 'DELETE',
+      dataType: 'json',
+      url: 'http://contacts.tinyapollo.com/contacts/' + id + '?key=letitbe',
+   }).done(function (data) {
+     console.log("Delete finished")
+    console.log(data)
+    window.open('ContactsList.html', '_self')
+  })
 }
