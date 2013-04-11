@@ -113,7 +113,9 @@ function addContact(){
     }
 }
 //Save Contact to the ContactList
-function saveContact(){       ////Edit Not Working
+function saveContact() {
+
+    ////Edit Not Working
     var contactName = $('#contactName').val()
     var contactTitle =  $('#contactTitle').val()
     var contactEmail = $('#contactEmail').val()
@@ -121,15 +123,19 @@ function saveContact(){       ////Edit Not Working
     var contactTwitterId = $('#contactTwitterId').val()
 
 
-    $.put("http://contacts.tinyapollo.com/contacts/?key=letitbe",
-    {
-      _id:currentContact._id,
-      name:contactName,
-      title:contactTitle,
-      email:contactEmail,
-      phone:contactPhone,
-      twitterId:contactTwitterId
+    $.ajax({
+        url: 'http://contacts.tinyapollo.com/contacts/' + currentContact._id + '/?key=letitbe',
+        type: 'PUT',
+        dataType: 'json',
+        data: { "_id": currentContact._id, 
+			    "name": $('#contactName').val(),
+			    "title":  $('#contactTitle').val(),
+			    "phone": $('#contactPhone').val(),
+			    "email": $('#contactEmail').val(),
+			    "twitterId":  $('#contactTwitterId').val()},
+        success: function (response) { console.log('PUT completed' + response) }
     })
+
 
     window.location.href="#contactListPage"
 
@@ -182,8 +188,12 @@ $.ajax({
   type: 'DELETE',
   dataType: 'json',
   data: '',
-  success: function(response) { console.log('PUT completed'+response) }
+  success: function (response) {
+      console.log('PUT delete' + response)
+      window.location.href = "#contactListPage"
+      $(document).ajaxStop(function () { location.reload(true); });
+  }
   })
 
-  window.location.href="#contactListPage"
+
 }
