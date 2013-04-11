@@ -113,14 +113,13 @@ function addContact(){
     }
 }
 //Save Contact to the ContactList
-function saveContact(){
+function saveContact(){       ////Edit Not Working
     var contactName = $('#contactName').val()
     var contactTitle =  $('#contactTitle').val()
     var contactEmail = $('#contactEmail').val()
     var contactPhone = $('#contactPhone').val()
     var contactTwitterId = $('#contactTwitterId').val()
 
-    console.log("Posting")
 
     $.put("http://contacts.tinyapollo.com/contacts/?key=letitbe",
     {
@@ -132,7 +131,7 @@ function saveContact(){
       twitterId:contactTwitterId
     })
 
-    console.log("Posted")
+    window.location.href="#contactListPage"
 
 }
 
@@ -177,7 +176,7 @@ $('#deleteButton').on('click',function(element){
 
 
 //Delete Contact from the List
-function deleteContact(id){         ////Not working
+function deleteContact(id){         ////Delete Not working
 $.ajax({
   url: 'http://contacts.tinyapollo.com/contacts/' + id + '?key=letitbe',
   type: 'DELETE',
@@ -185,4 +184,6 @@ $.ajax({
   data: '',
   success: function(response) { console.log('PUT completed'+response) }
   })
+
+  window.location.href="#contactListPage"
 }
