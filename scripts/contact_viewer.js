@@ -69,14 +69,7 @@ $("#editContactPage").on("pagebeforeshow", function() {
 
 
 
-$('#saveButton').on("click", function(){
-    //validate fields
 
-    //collect fields
-
-    //send fields to saveContact
-
-})
 
 //Used to load the contact information to the page.  Thought it made more sence than doing so in the function above.
 function loadContact(){
@@ -95,12 +88,37 @@ function loadContact(){
 }
 
 //Save Contact to the ContactList
-function saveContact(id,name,title,email,phone,twitterId){
-    //if id = 0 it is ad add.
+function addContact(name,title,email,phone,twitterId){
+    
+
 
 }
 
+//Save Contact to the ContactList
+function saveContact(){
+    var contactName = $('#contactName').val()
+    var contactTitle =  $('#contactTitle').val()
+    var contactEmail = $('#contactEmail').val()
+    var contactPhone = $('#contactPhone').val()
+    var contactTwitterId = $('#contactTwitterId').val()
 
+    console.log("Posting")
+
+    $.put("http://contacts.tinyapollo.com/contacts/?key=letitbe",
+    {
+      _id:currentContact._id,
+      name:contactName,
+      title:contactTitle,
+      email:contactEmail,
+      phone:contactPhone,
+      twitterId:contactTwitterId
+    })
+
+    console.log("Posted")
+
+}
+
+//Cancel Button off of the edit/add page
 $('#cancelButton').on('click',function(){
     if (currentContact==0){
       //From Add Screen
@@ -112,12 +130,34 @@ $('#cancelButton').on('click',function(){
     }
 })
 
-
+//Save Button off of the edit/add page
 $('#saveButton').on('click',function(){
     if (currentContact==0){
       //Add Contact
     }
     else{
       //Edit Contact
+      saveContact()
     }
 })
+
+//Delete button off of the Details Page
+$('#deleteButton').on('click',function(element){
+
+   var currentName = currentContact.name
+
+  var r=confirm("You are about to delete '" + currentName + "'' from your contact list.");
+ if (r==true)
+   {
+      deleteContact(currentContact._id)
+   }
+ 
+
+})
+
+
+
+//Delete Contact from the List
+function deleteContact(id){
+  console.log("Delete " + id)
+}
