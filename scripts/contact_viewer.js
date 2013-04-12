@@ -133,7 +133,13 @@ function saveContact() {
 			    "phone": $('#contactPhone').val(),
 			    "email": $('#contactEmail').val(),
 			    "twitterId":  $('#contactTwitterId').val()},
-        success: function (response) { console.log('PUT completed' + response) }
+        success: function (response) {
+			  window.location.href="#contactListPage"
+		      $(document).ajaxStop(function () { location.reload(true); });
+
+		console.log('PUT completed' + response)
+
+		}
     })
 
 
